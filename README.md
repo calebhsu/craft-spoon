@@ -6,6 +6,7 @@ Parameterized spoon model.
 	$ npm install craft-spoon
 
 ### Parameters
+- size: scales model
 - length: adjusts length of spoon
 
 ### Example

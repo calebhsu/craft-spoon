@@ -1,0 +1,22 @@
+{
+  "name": "craft-spoon",
+  "version": "1.0.0",
+  "description": "Parameterized Spoon Model",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calebhsu/craft-spoon.git"
+  },
+  "keywords": [
+    "craftml"
+  ],
+  "author": "Caleb Hsu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/calebhsu/craft-spoon/issues"
+  },
+  "homepage": "https://github.com/calebhsu/craft-spoon"
+}

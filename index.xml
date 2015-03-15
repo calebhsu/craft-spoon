@@ -1,33 +1,35 @@
 <craft>
+    <parameter name="size" type="int" default="1"/>
     <parameter name="length" type="int" default="30"/>
-    
+
     <!-- Handle -->
     <script type="text/openjscad">
         function main() {
+            var size = params.size;
             var length = params.length;
 
             // handles minimum length
             if (length < 15) { length = 15; }
-            
+
             var handleDiff, h;
-             
+
             // parts
             handleDiff = cube({
                 size: [10, 40, 10],
                 center: true
             }).translate([0, -25, 5]);
-     
+
             h = cylinder({
                 r1: 1.5,
                 r2: 2,
                 h: length,
                 fn: 6
             }).scale([1, 0.4, 1]);
- 
+
             // handle positioning
             h = h.rotateX(95);
             h = h.translate([0, -12, 3]);
-             
+
             h = difference(
                 h,
                 handleDiff.translate([6, 0, 0]).rotateZ(1),
@@ -35,22 +37,24 @@
                 sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10)
             );
 
-            return h;
+            return h.scale(size);
         }
     </script>
-    
+
     <!-- Neck -->
     <script type="text/openjscad">
         function main() {
+            var size = params.size;
+
             var curve, neck, neckDiff;
-             
+
             // parts
             curve = cylinder({
                 r: 8,
                 h: 20
             }).rotateX(90).translate([0, 10, 14]);
-             
-            neck =  intersection(
+
+            neck = intersection(
                 sphere(10),
                 curve
             ).rotateY(180);
@@ -60,7 +64,7 @@
                 center: true
             }).translate([0, -25, 5]);
 
-            // transition to handle              
+            // transition to handle
             neck = neck.translate([0, -13, 1]);
             neck = rotate([155, 0, 180], neck);
 
@@ -76,13 +80,15 @@
                 }).translate([0, -18, -2]).rotateX(6)
             );
 
-            return neck;
+            return neck.scale(size);
         }
     </script>
-    
+
     <!-- Scoop -->
     <script type="text/openjscad">
         function main() {
+            var size = params.size;
+            
             var scoopHead, diff, scoopEnd;
              
             // parts
@@ -90,24 +96,24 @@
                 r: 8,
                 h: 20
             });
-     
+
             // transformations
             diff = diff.rotateX(90).translate([0, 10, 14]);
-             
+
             // creates scoop base
             scoopHead = intersection(
                 sphere(10),
                 diff
             ).rotateY(180);
-            
-            // hollows out scoop parts  
+
+            // hollows out scoop parts
             scoopHead = difference(
                 scoopHead,
                 scoopHead.translate([0, 0, 1])
             );
-             
-            return scoopHead.translate([0, 0, 10]).rotateX(10);
+
+            return scoopHead.translate([0, 0, 10]).rotateX(10).scale(size);
         }
     </script>
-    
+
 </craft>

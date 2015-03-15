@@ -1,109 +1,113 @@
 <craft>
-    <parameter name="size" type="int" default="1"/>
     <parameter name="length" type="int" default="30"/>
+    
+    <!-- Handle -->
     <script type="text/openjscad">
-
         function main() {
-            var size = params.size;
             var length = params.length;
 
             // handles minimum length
             if (length < 15) { length = 15; }
             
-            // assembled spoon
-            return union(
-                scoop(),
-                handle()
-            ).scale(size);
+            var handleDiff, h;
              
-            // spoon components
-            function scoop() {
-                var scoopHead, diff, neckDiff, scoopEnd;
-                 
-                // parts
-                diff = cylinder({
-                    r: 8,
-                    h: 20
-                });
-         
-                // transformations
-                diff = diff.rotateX(90).translate([0, 10, 14]);
-                 
-                // creates scoop base
-                scoopHead = intersection(
-                    sphere(10),
-                    diff
-                );
-                
-                scoopHead = scoopHead.rotateY(180);
-                 
-                // hollows out scoop parts  
-                scoopHead = difference(
-                    scoopHead,
-                    scoopHead.translate([0, 0, 1])
-                );
-                 
-                return scoopHead.translate([0, 0, 10]).rotateX(10);
-            }
+            // parts
+            handleDiff = cube({
+                size: [10, 40, 10],
+                center: true
+            }).translate([0, -25, 5]);
+     
+            h = cylinder({
+                r1: 1.5,
+                r2: 2,
+                h: length,
+                fn: 6
+            }).scale([1, 0.4, 1]);
+ 
+            // handle positioning
+            h = h.rotateX(95);
+            h = h.translate([0, -12, 3]);
              
-            function handle() {
-                var curve, neck, h;
-                 
-                // parts
-                curve = cylinder({
-                    r: 8,
-                    h: 20
-                }).rotateX(90).translate([0, 10, 14]);
-                 
-                neck =  intersection(
-                    sphere(10),
-                    curve
-                );
-                         
-                neckDiff = cube({
-                    size: [10, 40, 10],
-                    center: true
-                });
-         
-                h = cylinder({
-                    r1: 1.5,
-                    r2: 2,
-                    h: length,
-                    fn: 6
-                }).scale([1, 0.4, 1]);
-                 
-                 
-                // transformations
-                neck = neck.rotateY(180);
-                 
-                // transition to handle              
-                neck = neck.translate([0, -13, 1]);
-                neck = rotate([155, 0, 180], neck);
-                neck = difference(
-                    neck,
-                    neck.rotateX(-10).translate([0, 2, -3])
-                );
-                 
-                // handle positioning
-                h = h.rotateX(95);
-                h = h.translate([0, -12, 3]);
-                 
-                h = union(h, neck);
-                 
-                h = difference(
-                    h,
-                    neckDiff.translate([6, -25, 5]).rotateZ(1),
-                    neckDiff.translate([-6, -25, 5]).rotateZ(-1),
-                    sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10),
-                    cube({
-                        size: [15, 10, 10],
-                        center: true
-                    }).translate([0, -18, -2]).rotateX(6)
-                );
-                         
-                return h;
-            }
-        }
+            h = difference(
+                h,
+                handleDiff.translate([6, 0, 0]).rotateZ(1),
+                handleDiff.translate([-6, 0, 0]).rotateZ(-1),
+                sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10)
+            );
 
+            return h;
+        }
     </script>
+    
+    <!-- Neck -->
+    <script type="text/openjscad">
+        function main() {
+            var curve, neck, neckDiff;
+             
+            // parts
+            curve = cylinder({
+                r: 8,
+                h: 20
+            }).rotateX(90).translate([0, 10, 14]);
+             
+            neck =  intersection(
+                sphere(10),
+                curve
+            ).rotateY(180);
+
+            neckDiff = cube({
+                size: [10, 40, 10],
+                center: true
+            }).translate([0, -25, 5]);
+
+            // transition to handle              
+            neck = neck.translate([0, -13, 1]);
+            neck = rotate([155, 0, 180], neck);
+
+            neck = difference(
+                neck,
+                neck.rotateX(-10).translate([0, 2, -3]),
+                neckDiff.translate([6, 0, 0]).rotateZ(1),
+                neckDiff.translate([-6, 0, 0]).rotateZ(-1),
+                sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10),
+                cube({
+                    size: [15, 10, 10],
+                    center: true
+                }).translate([0, -18, -2]).rotateX(6)
+            );
+
+            return neck;
+        }
+    </script>
+    
+    <!-- Scoop -->
+    <script type="text/openjscad">
+        function main() {
+            var scoopHead, diff, scoopEnd;
+             
+            // parts
+            diff = cylinder({
+                r: 8,
+                h: 20
+            });
+     
+            // transformations
+            diff = diff.rotateX(90).translate([0, 10, 14]);
+             
+            // creates scoop base
+            scoopHead = intersection(
+                sphere(10),
+                diff
+            ).rotateY(180);
+            
+            // hollows out scoop parts  
+            scoopHead = difference(
+                scoopHead,
+                scoopHead.translate([0, 0, 1])
+            );
+             
+            return scoopHead.translate([0, 0, 10]).rotateX(10);
+        }
+    </script>
+    
 </craft>

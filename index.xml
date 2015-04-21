@@ -3,9 +3,9 @@
     <parameter name="length" type="int" default="30"/>
 
     <group>
-        <!-- Handle -->
-        <script type="text/openjscad">
+        <script>
             function main() {
+                // Handle
                 var size = params.size;
                 var length = params.length;
     
@@ -44,9 +44,9 @@
             }
         </script>
     
-        <!-- Neck -->
-        <script type="text/openjscad">
+        <script>
             function main() {
+                // Neck
                 var size = params.size;
     
                 var curve, neck, neckDiff;
@@ -89,9 +89,9 @@
             }
         </script>
     
-        <!-- Scoop -->
-        <script type="text/openjscad">
+        <script>
             function main() {
+                // Scoop
                 var size = params.size;
                 
                 var scoopHead, diff, scoopEnd;

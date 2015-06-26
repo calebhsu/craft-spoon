@@ -1,8 +1,8 @@
 <craft name="spoon">
     <parameter name="length" type="int" default="30"/>
 
-    <column spacing="-3.75" align="x50 z0" color="silver">
-        <column spacing="-1.5" align="x50 z60">
+    <col spacing="-3.75" layout="alignZ(0%)" color="silver">
+        <col spacing="-1.5" layout="alignZ(60%)">
             <script>
                 function main() {
                     // Scoop
@@ -29,7 +29,7 @@
                         scoopHead.translate([0, 0, 1])
                     );
         
-                    return scoopHead.rotateX(10);
+                    return scoopHead.rotateX(10).rotateZ(180);
                 }
             </script>
             
@@ -72,10 +72,10 @@
                         sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10)
                     ); 
         
-                    return neck;
+                    return neck.rotateZ(180);
                 }
             </script>
-        </column>
+        </col>
         
         <script>
             function main() {
@@ -113,9 +113,9 @@
                     sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10)
                 );
     
-                return h;
+                return h.rotateZ(180);
             }
         </script>
-    </column>
+    </col>
 
 </craft>

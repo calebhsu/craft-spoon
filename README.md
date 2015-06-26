@@ -6,18 +6,17 @@ Parameterized spoon model.
 	$ npm install craft-spoon
 
 ### Parameters
-- size: scales model
 - length: adjusts length of spoon
 
 ### Example
 ```html
 <craft>
 	<craft name="spoon" module="craft-spoon"/>
-	<lineup spacing = "2">
-		<spoon length="15" size="2"></spoon>
+	<row spacing="2">
+		<spoon length="15" transform="scale(2,2,2)"></spoon>
 		<spoon length="20"></spoon>
 		<spoon></spoon>
-	</lineup>
+	</row>
 </craft>
 ```
 

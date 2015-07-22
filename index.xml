@@ -1,83 +1,86 @@
 <craft name="spoon">
+    <style>
+        * { color: silver; }    
+    </style>
+    
     <parameter name="length" type="int" default="30"/>
 
-    <col spacing="-3.75" layout="alignZ(0%)" color="silver">
-        <col spacing="-1.5" layout="alignZ(60%)">
-            <script>
-                function main() {
-                    // Scoop
-                    var scoopHead, diff, scoopEnd;
-                     
-                    // parts
-                    diff = cylinder({
-                        r: 8,
-                        h: 20
-                    });
-        
-                    // transformations
-                    diff = diff.rotateX(90).translate([0, 10, 14]);
-        
-                    // creates scoop base
-                    scoopHead = intersection(
-                        sphere(10),
-                        diff
-                    ).rotateY(180);
-        
-                    // hollows out scoop parts
-                    scoopHead = difference(
-                        scoopHead,
-                        scoopHead.translate([0, 0, 1])
-                    );
-        
-                    return scoopHead.rotateX(10).rotateZ(180);
-                }
-            </script>
+    <g>
+        <script type="text/openjscad" t="translate(0 1.3 9.9)">
+            function main() {
+                // Scoop
+                var scoopHead, diff, scoopEnd;
+                 
+                // parts
+                diff = cylinder({
+                    r: 8,
+                    h: 20
+                });
+    
+                // transformations
+                diff = diff.rotateX(90).translate([0, 10, 14]);
+    
+                // creates scoop base
+                scoopHead = intersection(
+                    sphere(10),
+                    diff
+                ).rotateY(180);
+    
+                // hollows out scoop parts
+                scoopHead = difference(
+                    scoopHead,
+                    scoopHead.translate([0, 0, 1])
+                );
+    
+                return scoopHead.rotateX(10).rotateZ(180);
+            }
+        </script>
             
-            <script>
-                function main() {
-                    // Neck
-                    var curve, neck, neckDiff;
+        <script type="text/openjscad">
+            function main() {
+                // Neck
+                var curve, neck, neckDiff;
+    
+                // parts
+                curve = cylinder({
+                    r: 8,
+                    h: 20
+                }).rotateX(90).translate([0, 10, 14]);
+    
+                neck = intersection(
+                    sphere(10),
+                    curve
+                );
+    
+                neckDiff = cube({
+                    size: [5, 20, 10],
+                    center: true
+                }).translate([0, -15, 0]);
+    
+                // transition to handle
+                neck = neck.translate([0, -13, -1]);
+                neck = rotate([205, 180, 180], neck);
+                
+                neck = difference(
+                    neck,
+                    neck.rotateX(-10).translate([0, 2, -3]),
+                    union(
+                        neckDiff.translate([3.5, 0, 0]).rotateZ(1),
+                        neckDiff.translate([-3.5, 0, 0]).rotateZ(-1),
+                        cube({
+                            size: [5, 3, 3],
+                            center: true
+                        }).translate([0, -20, -3])
+                    ),
+                    sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10)
+                ); 
+    
+                return neck.rotateZ(180);
+            }
+        </script>
+
         
-                    // parts
-                    curve = cylinder({
-                        r: 8,
-                        h: 20
-                    }).rotateX(90).translate([0, 10, 14]);
-        
-                    neck = intersection(
-                        sphere(10),
-                        curve
-                    );
-        
-                    neckDiff = cube({
-                        size: [5, 20, 10],
-                        center: true
-                    }).translate([0, -15, 0]);
-        
-                    // transition to handle
-                    neck = neck.translate([0, -13, -1]);
-                    neck = rotate([205, 180, 180], neck);
-                    
-                    neck = difference(
-                        neck,
-                        neck.rotateX(-10).translate([0, 2, -3]),
-                        union(
-                            neckDiff.translate([3.5, 0, 0]).rotateZ(1),
-                            neckDiff.translate([-3.5, 0, 0]).rotateZ(-1),
-                            cube({
-                                size: [5, 3, 3],
-                                center: true
-                            }).translate([0, -20, -3])
-                        ),
-                        sphere(4).scale([1, 2, 1]).translate([0, -14, 1.5]).rotateX(10)
-                    ); 
-        
-                    return neck.rotateZ(180);
-                }
-            </script>
-        </col>
-        
-        <script>
+        <script type="text/openjscad">
             function main() {
                 // Handle
                 var length = params.length;
@@ -116,6 +119,6 @@
                 return h.rotateZ(180);
             }
         </script>
-    </col>
+    </g>
 
 </craft>

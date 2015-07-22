@@ -2,8 +2,12 @@
 
 Parameterized spoon model.
 
-### Install
-	$ npm install craft-spoon
+### Usage
+```html
+<craft>
+    <craft name="spoon" module="craft-spoon"/>
+    <spoon></spoon>
+</craft>
 
 ### Parameters
 - length: adjusts length of spoon
@@ -11,12 +15,12 @@ Parameterized spoon model.
 ### Example
 ```html
 <craft>
-	<craft name="spoon" module="craft-spoon"/>
-	<row spacing="2">
-		<spoon length="15" transform="scale(2,2,2)"></spoon>
-		<spoon length="20"></spoon>
-		<spoon></spoon>
-	</row>
+    <craft name="spoon" module="craft-spoon"/>
+    <row spacing="2">
+        <spoon length="15" transform="scale(2,2,2)"></spoon>
+        <spoon length="20"></spoon>
+        <spoon></spoon>
+    </row>
 </craft>
 ```
 
